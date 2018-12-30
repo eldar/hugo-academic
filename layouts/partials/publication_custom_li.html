@@ -1,0 +1,70 @@
+<div class="row">
+    <div class="col-12 col-lg-3">
+        <div class="ml-3">
+                {{ $resource := (.Resources.ByType "image").GetMatch "*featured*" }}
+                {{ with $resource }}
+                {{ $image := .Permalink }}
+                <a href="{{ $.RelPermalink }}">
+                <img src="{{ $image }}" itemprop="image">
+                </a>
+                {{end}}
+            </div>
+        </div>
+    <div class="col-12 col-lg-9">
+        <div class="media stream-item" itemscope itemtype="http://schema.org/ScholarlyArticle">
+        <div class="media-body">
+
+            <h3 class="article-title mb-0 mt-0" itemprop="name">
+            <a href="{{ .RelPermalink }}" itemprop="url">{{ .Title }}</a>
+            </h3>
+
+            {{ $summary := "" }}
+            {{ if .Params.abstract_short }}
+            {{ $summary = .Params.abstract_short | markdownify }}
+            {{ else if .Params.abstract }}
+            {{ $summary = .Params.abstract | markdownify }}
+            {{ else if .Truncated }}
+            {{ $summary = .Summary }}
+            {{ end }}
+            {{ with $summary }}
+            <div class="article-style" itemprop="articleBody">
+            {{ . | truncate 135 }}
+            </div>
+            {{ end }}
+
+            
+
+            <div class="stream-meta">
+                <div itemprop="author">
+                    {{ range first (sub (len .Params.authors) 1) .Params.authors }}
+                    {{ if eq . $.Site.Params.name}}
+                    <b>{{ . | markdownify}}</b>,
+                    {{ else }}
+                    {{ . | markdownify}},
+                    {{ end }}
+                    {{ end }}
+
+                    {{ range after (sub (len .Params.authors) 1) .Params.authors }}
+                    {{ if eq . $.Site.Params.name}}
+                    <b>{{ . | markdownify}}</b>
+                    {{ else }}
+                    {{ . | markdownify}}
+                    {{ end }}
+                    {{ end }}
+                </div>
+            </div>
+
+            {{ if .Params.venue }}
+            <div>
+                <i>{{ .Params.venue }}</i>
+            </div>
+            {{ end }}
+
+            <div class="btn-links">
+            {{ partial "page_links_custom" (dict "content" . "is_list" 1) }}
+            </div>
+
+        </div>
+        </div>
+    </div>
+</div>

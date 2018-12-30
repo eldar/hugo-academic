@@ -4,7 +4,9 @@
 
 <!-- Publications widget -->
 <div>
-    <h2>Publications</h2>
+    <div class="section-heading">
+        <h1>Publications</h1>
+    </div>
     {{ if gt $pubs_len $page.Params.count }}
     <p class="view-all">
         <a href="{{ ($.Site.GetPage "section" "publication").RelPermalink }}">

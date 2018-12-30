@@ -473,14 +473,14 @@ a[data-fancybox] img {
 
 .home-section {
   background-color: {{ .Get "home_section_odd" }};
-  padding: 110px 0 110px 0;
+  padding: 50px 0 20px 0;
   animation: intro 0.3s both;
   animation-delay: 0.15s;
 }
 
 .home-section:first-of-type {
   padding-top: 0px;
-  padding-bottom: 50px;
+  padding-bottom: 0px;
 }
 
 .home-section:nth-of-type(even) {
@@ -506,6 +506,10 @@ a[data-fancybox] img {
 
 .section-heading h1 {
   margin: 0 0 30px 0;
+}
+
+.section-heading h2 {
+  margin: 0 0 20px 0;
 }
 
 .section-heading p {
@@ -2245,4 +2249,8 @@ body.dark,
 .dark .btn-primary,
 .dark .btn.btn-primary.active {
   color: initial;
+}
+
+.home-section:nth-of-type(even) {
+  background-color: rgb(255, 255, 255);
 }

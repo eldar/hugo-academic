@@ -5,7 +5,7 @@
                 {{ with $resource }}
                 {{ $image := .Permalink }}
                 <a href="{{ $.RelPermalink }}">
-                <img src="{{ $image }}" itemprop="image">
+                <img src="{{ $image }}" itemprop="image" class="paper-teaser">
                 </a>
                 {{end}}
             </div>
@@ -17,22 +17,6 @@
             <h3 class="article-title mb-0 mt-0" itemprop="name">
             <a href="{{ .RelPermalink }}" itemprop="url">{{ .Title }}</a>
             </h3>
-
-            {{ $summary := "" }}
-            {{ if .Params.abstract_short }}
-            {{ $summary = .Params.abstract_short | markdownify }}
-            {{ else if .Params.abstract }}
-            {{ $summary = .Params.abstract | markdownify }}
-            {{ else if .Truncated }}
-            {{ $summary = .Summary }}
-            {{ end }}
-            {{ with $summary }}
-            <div class="article-style" itemprop="articleBody">
-            {{ . | truncate 135 }}
-            </div>
-            {{ end }}
-
-            
 
             <div class="stream-meta">
                 <div itemprop="author">
@@ -56,13 +40,28 @@
 
             {{ if .Params.venue }}
             <div>
-                <i>{{ .Params.venue }}</i>
+                <i>{{ .Params.venue | markdownify }}</i>
             </div>
             {{ end }}
 
             <div class="btn-links">
             {{ partial "page_links_custom" (dict "content" . "is_list" 1) }}
             </div>
+
+            {{ $summary := "" }}
+            {{ $shortname := .Params.shortname}}
+            {{ if .Params.abstract_short }}
+            {{ $summary = .Params.abstract_short | markdownify }}
+            {{ else if .Params.abstract }}
+            {{ $summary = .Params.abstract | markdownify }}
+            {{ else if .Truncated }}
+            {{ $summary = .Summary }}
+            {{ end }}
+            {{ with $summary }}
+            <div class="article-style abstract-block" itemprop="articleBody" id="{{ $shortname }}_abstract" style="display: none;">
+            {{ . }}
+            </div>
+            {{ end }}
 
         </div>
         </div>

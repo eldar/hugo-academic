@@ -46,6 +46,18 @@
 {{ end }}
 {{ end }}
 
+{{ with $.Params.abstract }}
+  {{ $resource := $.Resources.GetMatch . }}
+  {{ if $resource }}
+    {{ $link = $resource.RelPermalink }}
+  {{ else }}
+    {{ $link = . | relURL }}
+  {{ end }}
+<a class="btn btn-outline-primary my-1 mr-1" href="javascript:toggleblock('{{ $.Params.shortname }}_abstract')">
+  abstract
+</a>
+{{ end }}
+
 {{ $resource := $.Resources.GetMatch "*.bib" }}
 {{ with $resource }}
 <button type="button" class="btn btn-outline-primary my-1 mr-1 js-cite-modal"

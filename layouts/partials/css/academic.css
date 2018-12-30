@@ -2254,3 +2254,11 @@ body.dark,
 .home-section:nth-of-type(even) {
   background-color: rgb(255, 255, 255);
 }
+
+img.paper-teaser {
+  width: 235px;
+}
+
+.abstract-block {
+  padding-top: 10px;
+}

@@ -1,21 +1,27 @@
 <div class="row">
+    {{ $main_url := $.RelPermalink }}
+    {{ if $.Params.url_pdf }}
+        {{ $main_url = $.Params.url_pdf }}
+    {{ else if $.Params.url_project }}
+        {{ $main_url = $.Params.url_project }}
+    {{ end }}
     <div class="col-12 col-lg-3">
         <div class="ml-3">
-                {{ $resource := (.Resources.ByType "image").GetMatch "*featured*" }}
-                {{ with $resource }}
-                {{ $image := .Permalink }}
-                <a href="{{ $.RelPermalink }}">
+            {{ $resource := (.Resources.ByType "image").GetMatch "*featured*" }}
+            {{ with $resource }}
+            {{ $image := .Permalink }}
+            <a href="{{ $main_url }}">
                 <img src="{{ $image }}" itemprop="image" class="paper-teaser">
-                </a>
-                {{end}}
-            </div>
+            </a>
+            {{end}}
         </div>
+    </div>
     <div class="col-12 col-lg-9">
         <div class="media stream-item" itemscope itemtype="http://schema.org/ScholarlyArticle">
         <div class="media-body">
 
             <h3 class="article-title mb-0 mt-0" itemprop="name">
-            <a href="{{ .RelPermalink }}" itemprop="url">{{ .Title }}</a>
+            <a href="{{ $main_url }}" itemprop="url">{{ .Title }}</a>
             </h3>
 
             <div class="stream-meta">
